@@ -31,30 +31,30 @@ jobs:
       - name: Docker Build and push
         run: |
           docker build -t candycrush .
-          docker tag candycrush sevenajay/candycrush:latest
+          docker tag candycrush himanshutoshniwal7570/candycrush:latest
           docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }}
           docker push sevenajay/candycrush:latest
         env:
           DOCKER_CLI_ACI: 1
 
       - name: Image scan
-        run: trivy image sevenajay/candycrush:latest > trivyimage.txt
+        run: trivy image himanshutoshniwal7570/candycrush:latest > trivyimage.txt
 
   deploy:
    needs: build-analyze-scan   
    runs-on: [self-hosted]
    steps:
       - name: docker pull image
-        run: docker pull sevenajay/candycrush:latest
+        run: docker pull himanshutoshniwal7570/candycrush:latest
 
       - name: Image scan
-        run: trivy image sevenajay/candycrush:latest > trivyimagedeploy.txt  
+        run: trivy image himanshutoshniwal7570/candycrush:latest > trivyimagedeploy.txt  
   
       - name: Deploy to container
-        run: docker run -d --name game -p 3000:3000 sevenajay/candycrush:latest
+        run: docker run -d --name game -p 3000:3000 himanshutoshniwal7570/candycrush:latest
 
       - name: Update kubeconfig
-        run: aws eks --region ap-south-1 update-kubeconfig --name EKS_CLOUD
+        run: aws eks --region ap-south-1 update-kubeconfig --name himanshu-candy
 
       - name: Deploy to kubernetes
         run: kubectl apply -f deployment-service.yml
