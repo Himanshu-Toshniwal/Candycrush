@@ -33,7 +33,7 @@ jobs:
           docker build -t candycrush .
           docker tag candycrush himanshutoshniwal7570/candycrush:latest
           docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }}
-          docker push sevenajay/candycrush:latest
+          docker push himanshutoshniwal7570/candycrush:latest
         env:
           DOCKER_CLI_ACI: 1
 
