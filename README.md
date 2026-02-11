@@ -1,6 +1,6 @@
 # Candy Crush in React
 
-
+![Project Architecture](candy-crush-game.jpg)
 ### To Start This Project
 
 ### `npm i`
